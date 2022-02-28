@@ -17,6 +17,6 @@ func main() {
 		},
 	}
 
-	root.Flags().StringVarP(&dir, "dir", "d", "", "Go source file dir to read")
+	root.Flags().StringVarP(&dir, "dir", "d", ".", "Go source file dir to read")
 	root.Execute()
 }
