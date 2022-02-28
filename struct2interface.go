@@ -10,7 +10,6 @@ import (
 	"io/ioutil"
 	"log"
 	"path/filepath"
-	"regexp"
 	"strings"
 
 	"golang.org/x/tools/imports"
@@ -101,10 +100,6 @@ func FormatFieldList(src []byte, fl *ast.FieldList, pkgName string) []string {
 		}
 		t := string(src[l.Type.Pos()-1 : l.Type.End()-1])
 
-		regexString := fmt.Sprintf(`(\*|\(|\s|^)%s`, regexp.QuoteMeta(pkgName))
-
-		t = regexp.MustCompile(regexString).ReplaceAllString(t, "$1")
-
 		if len(names) > 0 {
 			typeSharingArgs := strings.Join(names, ", ")
 			parts = append(parts, fmt.Sprintf("%s %s", typeSharingArgs, t))
@@ -158,7 +153,12 @@ func MakeInterface(pkgName string, ifaceComment map[string]string, structs []str
 	}
 	code := strings.Join(output, "\n")
 
-	return FormatCode(code)
+	result, err := FormatCode(code)
+	if err != nil {
+		fmt.Println(code)
+		return nil, err
+	}
+	return result, nil
 }
 
 // ParseStruct takes in a piece of source code as a
@@ -276,8 +276,6 @@ func Make(files []string) ([]byte, error) {
 	if len(allMethods) > 0 {
 		result, err = MakeInterface(pkgName, typeDoc, structs, allMethods, allImports)
 		if err != nil {
-			log.Println("MakeInterface failed", err)
-			log.Println(pkgName, typeDoc, allMethods, allImports)
 			return nil, err
 		}
 	}
