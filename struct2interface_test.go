@@ -58,12 +58,18 @@ func TestDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data, err := ioutil.ReadFile("./testdata/interface_testdata.go")
+	output, err := ioutil.ReadFile("./testdata/interface_testdata.go")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if string(data) != string(src) {
+	if string(output) != string(src) {
+		fmt.Println(len(output), len(src))
+		fmt.Println("-------------------------")
+		fmt.Println(strings.ReplaceAll(string(output), "\n", " "))
+		fmt.Println("-------------------------")
+		fmt.Println(strings.ReplaceAll(string(src), "\n", " "))
+		fmt.Println("-------------------------")
 		t.Fail()
 	}
 }
