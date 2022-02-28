@@ -205,7 +205,10 @@ func ParseStruct(src []byte) (pkgName string, structs []string, methods map[stri
 					docs = append(docs, string(src[d.Pos()-1:d.End()-1]))
 				}
 			}
-			structs = append(structs, a)
+			if _, ok := methods[a]; !ok {
+				structs = append(structs, a)
+			}
+
 			methods[a] = append(methods[a], Method{
 				Code: method,
 				Docs: docs,
@@ -281,9 +284,10 @@ func Make(files []string) ([]byte, error) {
 		}
 
 		dir := filepath.Dir(files[0])
-		Output := filepath.Join(dir, "interface_"+structName+".go")
+		output := filepath.Join(dir, "interface_"+structName+".go")
 
-		ioutil.WriteFile(Output, result, 0644)
+		ioutil.WriteFile(output, result, 0644)
+		fmt.Println("struct2interface:", dir+": wrote", output)
 	}
 
 	return result, nil
