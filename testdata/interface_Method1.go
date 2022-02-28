@@ -2,16 +2,6 @@
 
 package testdata
 
-// MethodInterface ...
-// Method describes the code and documentation
-// tied into a method
-type MethodInterface interface {
-	// Lines return a []string consisting of
-	// the documentation and code appended
-	// in chronological order
-	Lines() []string
-}
-
 // Method1Interface ...
 // Method1 describes the code and documentation
 // tied into a method
