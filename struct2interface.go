@@ -173,7 +173,7 @@ func MakeInterface(pkgName string, ifaceComment map[string]string, structs []str
 // not, the imports not used will be removed later using the
 // 'imports' pkg If anything goes wrong, this method will
 // fatally stop the execution
-func ParseStruct(src []byte) (pkgName string, methods map[string][]Method, imports []string, typeDoc map[string]string, err error) {
+func ParseStruct(src []byte) (pkgName string, structs []string, methods map[string][]Method, imports []string, typeDoc map[string]string, err error) {
 	fset := token.NewFileSet()
 	a, err := parser.ParseFile(fset, "", src, parser.ParseComments)
 	if err != nil {
@@ -205,6 +205,7 @@ func ParseStruct(src []byte) (pkgName string, methods map[string][]Method, impor
 					docs = append(docs, string(src[d.Pos()-1:d.End()-1]))
 				}
 			}
+			structs = append(structs, a)
 			methods[a] = append(methods[a], Method{
 				Code: method,
 				Docs: docs,
@@ -237,7 +238,7 @@ func Make(files []string) ([]byte, error) {
 			return nil, err
 		}
 
-		pkg, methods, imports, parsedTypeDoc, err := ParseStruct(src)
+		pkg, structSlice, methods, imports, parsedTypeDoc, err := ParseStruct(src)
 		if err != nil {
 			log.Println("file:", f)
 			return nil, err
@@ -248,6 +249,7 @@ func Make(files []string) ([]byte, error) {
 		}
 
 		pkgName = pkg
+		structs = structSlice
 
 		for _, i := range imports {
 			if _, ok := iset[i]; !ok {
@@ -260,10 +262,8 @@ func Make(files []string) ([]byte, error) {
 			typeDoc[structName] = fmt.Sprintf("%s ...\n%s", structName+"Interface", parsedTypeDoc[structName])
 
 			for _, m := range mm {
+
 				if _, ok := mset[m.Code]; !ok {
-					if _, ok := allMethods[structName]; !ok {
-						structs = append(structs, structName)
-					}
 					allMethods[structName] = append(allMethods[structName], m.Lines()...)
 					mset[m.Code] = struct{}{}
 				}
