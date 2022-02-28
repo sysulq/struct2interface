@@ -35,7 +35,7 @@ type Method1Interface interface {
 
 func TestMaker(t *testing.T) {
 	files := []string{"./testdata/testdata.go"}
-	output, err := Make(files, "comment", "pkg", "Interface", "InterfaceComment", true, true)
+	output, err := Make(files, "comment", "pkg", "Interface", "InterfaceComment", true)
 	if err != nil {
 		t.Fatal(err)
 	}

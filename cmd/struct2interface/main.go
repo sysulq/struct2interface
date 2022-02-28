@@ -14,16 +14,13 @@ import (
 
 func main() {
 	var (
-		dir, CopyDocs, PkgName, IfaceComment, IfaceName, Comment, Output string
-		copyDocs, InPackage, CopyTypeDoc                                 bool
+		dir, PkgName, IfaceComment, IfaceName, Comment, Output string
+		InPackage, CopyTypeDoc                                 bool
 	)
 
 	root := &cobra.Command{
 		Use: "struct2interface",
 		Run: func(cmd *cobra.Command, args []string) {
-			// Workaround because jessevdk/go-flags doesn't support default values for boolean flags
-			copyDocs = CopyDocs == "true"
-
 			if IfaceComment == "" {
 				IfaceComment = fmt.Sprintf("%s ...", IfaceName)
 			}
@@ -51,7 +48,7 @@ func main() {
 					return nil
 				}
 
-				result, err := struct2interface.Make([]string{path}, Comment, PkgName, IfaceName, IfaceComment, copyDocs, CopyTypeDoc)
+				result, err := struct2interface.Make([]string{path}, Comment, PkgName, IfaceName, IfaceComment, CopyTypeDoc)
 				if err != nil {
 					log.Fatal("struct2interface.Make failed,", err.Error(), path)
 				}

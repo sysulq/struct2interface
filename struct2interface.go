@@ -171,7 +171,7 @@ func MakeInterface(comment string, pkgName string, ifaceName string, ifaceCommen
 // not, the imports not used will be removed later using the
 // 'imports' pkg If anything goes wrong, this method will
 // fatally stop the execution
-func ParseStruct(src []byte, copyDocs bool, copyTypeDocs bool, pkgName string) (pkg string, methods map[string][]Method, imports []string, typeDoc map[string]string, err error) {
+func ParseStruct(src []byte, copyTypeDocs bool, pkgName string) (pkg string, methods map[string][]Method, imports []string, typeDoc map[string]string, err error) {
 	fset := token.NewFileSet()
 	a, err := parser.ParseFile(fset, "", src, parser.ParseComments)
 	if err != nil {
@@ -198,7 +198,7 @@ func ParseStruct(src []byte, copyDocs bool, copyTypeDocs bool, pkgName string) (
 			ret := FormatFieldList(src, fd.Type.Results, pkgName)
 			method := fmt.Sprintf("%s(%s) (%s)", fd.Name.String(), strings.Join(params, ", "), strings.Join(ret, ", "))
 			var docs []string
-			if fd.Doc != nil && copyDocs {
+			if fd.Doc != nil {
 				for _, d := range fd.Doc.List {
 					docs = append(docs, string(src[d.Pos()-1:d.End()-1]))
 				}
@@ -222,7 +222,7 @@ func ParseStruct(src []byte, copyDocs bool, copyTypeDocs bool, pkgName string) (
 	return
 }
 
-func Make(files []string, comment, pkgName, ifaceName, ifaceComment string, copyDocs, copyTypeDoc bool) ([]byte, error) {
+func Make(files []string, comment, pkgName, ifaceName, ifaceComment string, copyTypeDoc bool) ([]byte, error) {
 	allMethods := make(map[string][]string)
 	allImports := []string{}
 	mset := make(map[string]struct{})
@@ -236,7 +236,7 @@ func Make(files []string, comment, pkgName, ifaceName, ifaceComment string, copy
 			return nil, err
 		}
 
-		pkg, methods, imports, parsedTypeDoc, err := ParseStruct(src, copyDocs, copyTypeDoc, pkgName)
+		pkg, methods, imports, parsedTypeDoc, err := ParseStruct(src, copyTypeDoc, pkgName)
 		if err != nil {
 			log.Println("file:", f)
 			return nil, err
