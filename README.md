@@ -10,7 +10,7 @@ makes unit testing easier.
 ## Install
 
 ```
-go install github.com/hnlq715/struct2interface@latest
+go install github.com/hnlq715/struct2interface/cmd/struct2interface@latest
 ```
 
 ## Usage
