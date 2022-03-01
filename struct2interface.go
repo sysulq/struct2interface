@@ -167,7 +167,7 @@ func makeFile(file string) ([]byte, error) {
 	allMethods := make(map[string][]string)
 	allImports := []string{}
 	structs := []string{}
-	mset := make(map[string]struct{})
+	// mset := make(map[string]struct{})
 	iset := make(map[string]struct{})
 	typeDoc := make(map[string]string)
 	pkgName := ""
@@ -202,10 +202,10 @@ func makeFile(file string) ([]byte, error) {
 
 		for _, m := range mm {
 
-			if _, ok := mset[m.Code]; !ok {
-				allMethods[structName] = append(allMethods[structName], m.Lines()...)
-				mset[m.Code] = struct{}{}
-			}
+			// if _, ok := mset[m.Code]; !ok {
+			allMethods[structName] = append(allMethods[structName], m.Lines()...)
+			// 	mset[m.Code] = struct{}{}
+			// }
 		}
 	}
 

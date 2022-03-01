@@ -6,8 +6,8 @@ package testdata
 // Method1 describes the code and documentation
 // tied into a method
 type Method1Interface interface {
-	// Lines1 return a []string consisting of
+	// Lines return a []string consisting of
 	// the documentation and code appended
 	// in chronological order
-	Lines1() []string
+	Lines() []string
 }

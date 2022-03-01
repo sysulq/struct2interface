@@ -24,10 +24,10 @@ type Method1 struct {
 	Docs []string
 }
 
-// Lines1 return a []string consisting of
+// Lines return a []string consisting of
 // the documentation and code appended
 // in chronological order
-func (m *Method1) Lines1() []string {
+func (m *Method1) Lines() []string {
 	var lines []string
 	lines = append(lines, m.Docs...)
 	lines = append(lines, m.Code)

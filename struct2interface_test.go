@@ -31,10 +31,10 @@ package testdata
 // Method1 describes the code and documentation
 // tied into a method
 type Method1Interface interface {
-	// Lines1 return a []string consisting of
+	// Lines return a []string consisting of
 	// the documentation and code appended
 	// in chronological order
-	Lines1() []string
+	Lines() []string
 }
 `)
 )
@@ -58,11 +58,11 @@ func TestDir(t *testing.T) {
 		t.Fail()
 	}
 
-	output, err = ioutil.ReadFile("./testdata/interface_Method.go")
+	output, err = ioutil.ReadFile("./testdata/interface_Method1.go")
 	if err != nil {
 		t.Fatal(err)
 	}
-	test, err = ioutil.ReadFile("./testdata/test_interface_Method.go")
+	test, err = ioutil.ReadFile("./testdata/test_interface_Method1.go")
 	if err != nil {
 		t.Fatal(err)
 	}
