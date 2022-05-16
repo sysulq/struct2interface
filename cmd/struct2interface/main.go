@@ -18,5 +18,7 @@ func main() {
 	}
 
 	root.Flags().StringVarP(&dir, "dir", "d", ".", "Go source file dir to read")
-	root.Execute()
+	if err := root.Execute(); err != nil {
+		panic(err)
+	}
 }

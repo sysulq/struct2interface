@@ -123,7 +123,7 @@ func parseStruct(src []byte) (pkgName string, structs []string, methods map[stri
 		if i.Name != nil {
 			imports = append(imports, fmt.Sprintf("%s %s", i.Name.String(), i.Path.Value))
 		} else {
-			imports = append(imports, fmt.Sprintf("%s", i.Path.Value))
+			imports = append(imports, i.Path.Value)
 		}
 	}
 
@@ -166,7 +166,7 @@ func parseStruct(src []byte) (pkgName string, structs []string, methods map[stri
 func makeFile(file string) ([]byte, error) {
 	allMethods := make(map[string][]string)
 	allImports := []string{}
-	structs := []string{}
+	var structs []string
 	// mset := make(map[string]struct{})
 	iset := make(map[string]struct{})
 	typeDoc := make(map[string]string)
@@ -220,7 +220,10 @@ func makeFile(file string) ([]byte, error) {
 		dir := filepath.Dir(file)
 		output := filepath.Join(dir, "interface_"+structName+".go")
 
-		ioutil.WriteFile(output, result, 0644)
+		err := ioutil.WriteFile(output, result, 0644)
+		if err != nil {
+			return nil, err
+		}
 		fmt.Println("struct2interface:", dir+": wrote", output)
 	}
 
@@ -229,7 +232,7 @@ func makeFile(file string) ([]byte, error) {
 
 func MakeDir(dir string) error {
 
-	filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -259,6 +262,9 @@ func MakeDir(dir string) error {
 
 		return nil
 	})
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
