@@ -37,3 +37,23 @@ func TestDir(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestPackage(t *testing.T) {
+	err := MakeDir("./testdata/package_test")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	output, err := ioutil.ReadFile("./testdata/package_test/interface_Method.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	test, err := ioutil.ReadFile("./testdata/package_test/test_interface_Method.go")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(output) != string(test) {
+		t.Fail()
+	}
+}
