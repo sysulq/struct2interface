@@ -1,4 +1,4 @@
-package case_single_file
+package testdata
 
 // Method describes the code and documentation
 // tied into a method
