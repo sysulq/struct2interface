@@ -3,8 +3,12 @@
 package testdata
 
 // PackageMethodInterface ...
-//
 type PackageMethodInterface interface {
 	Method1() string
 	Method2() string
+}
+
+// PackageMethod2Interface ...
+type PackageMethod2Interface interface {
+	Method1() string
 }
