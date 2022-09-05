@@ -141,7 +141,17 @@ func formatCode(code string) ([]byte, error) {
 		Fragment:  true,
 		Comments:  true,
 	}
-	return imports.Process("", []byte(code), opts)
+
+	formatcode, err := imports.Process("", []byte(code), opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if string(formatcode) == code {
+		return formatcode, err
+	}
+
+	return formatCode(string(formatcode))
 }
 
 func makeInterfaceHead(pkgName string, imports []string) []string {
