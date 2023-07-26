@@ -46,7 +46,7 @@ type PackageMethodInterface interface {
 // PackageMethod2Interface ...
 type PackageMethod2Interface interface {
 	/*
-	   the /*-style comment test
+		the /*-style comment test
 	*/
 	Method1() string
 }
