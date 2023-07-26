@@ -4,11 +4,15 @@ package testdata
 
 // PackageMethodInterface ...
 type PackageMethodInterface interface {
+	// the //-style comment test
 	Method1() string
 	Method2() string
 }
 
 // PackageMethod2Interface ...
 type PackageMethod2Interface interface {
+	/*
+	   the /*-style comment test
+	*/
 	Method1() string
 }
