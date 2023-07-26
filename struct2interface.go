@@ -112,12 +112,13 @@ func parseStruct(src []byte) (pkgName string, structs []string, methods map[stri
 			var docs []string
 			if fd.Doc != nil {
 				for _, d := range fd.Doc.List {
-					// 判断注释类型
-					if strings.HasPrefix(d.Text, "/*") && len(src) > int(d.End())+1 {
-						docs = append(docs, string(src[d.Pos()-1:d.End()+1]))
-					} else {
-						docs = append(docs, string(src[d.Pos()-1:d.End()-1]))
-					}
+					// // 判断注释类型
+					// if strings.HasPrefix(d.Text, "/*") && len(src) > int(d.End())+1 {
+					// 	docs = append(docs, d.Text)
+					// } else {
+					// 	docs = append(docs, string(src[d.Pos()-1:d.End()-1]))
+					// }
+					docs = append(docs, d.Text)
 				}
 			}
 			if _, ok := methods[structName]; !ok {
