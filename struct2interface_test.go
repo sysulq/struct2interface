@@ -1,7 +1,6 @@
 package struct2interface
 
 import (
-	"fmt"
 	"io/ioutil"
 	"testing"
 
@@ -79,8 +78,6 @@ func TestPackage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(string(output))
-	fmt.Printf("%s", string(testPackageCompared))
 	if string(output) != testPackageCompared {
 		t.Fail()
 	}
