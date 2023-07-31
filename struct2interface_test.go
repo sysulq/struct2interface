@@ -38,12 +38,16 @@ package testdata
 
 // PackageMethodInterface ...
 type PackageMethodInterface interface {
+	// the //-style comment test
 	Method1() string
 	Method2() string
 }
 
 // PackageMethod2Interface ...
 type PackageMethod2Interface interface {
+	/*
+	   the /*-style comment test
+	*/
 	Method1() string
 }
 `
@@ -59,7 +63,6 @@ func TestDir(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	if string(output) != testDirCompared {
 		t.Fail()
 	}
@@ -75,7 +78,6 @@ func TestPackage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
 	if string(output) != testPackageCompared {
 		t.Fail()
 	}
