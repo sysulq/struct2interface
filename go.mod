@@ -1,6 +1,6 @@
 module github.com/hnlq715/struct2interface
 
-go 1.17
+go 1.19
 
 require (
 	github.com/spf13/cobra v1.8.0
