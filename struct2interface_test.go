@@ -13,6 +13,7 @@ const (
 package case_single_file
 
 // MethodInterface ...
+//
 //	Method describes the code and documentation
 //	tied into a method
 type MethodInterface interface {
@@ -23,6 +24,7 @@ type MethodInterface interface {
 }
 
 // Method1Interface ...
+//
 //	Method1 describes the code and documentation
 //	tied into a method
 type Method1Interface interface {
