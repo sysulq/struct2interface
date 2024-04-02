@@ -1,7 +1,7 @@
 package struct2interface
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -61,7 +61,7 @@ func TestDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	output, err := ioutil.ReadFile("./testdata/case_single_file/interface_case_single_file.go")
+	output, err := os.ReadFile("./testdata/case_single_file/interface_case_single_file.go")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,7 +76,7 @@ func TestPackage(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	output, err := ioutil.ReadFile("./testdata/case_package/interface_testdata.go")
+	output, err := os.ReadFile("./testdata/case_package/interface_testdata.go")
 	if err != nil {
 		t.Fatal(err)
 	}

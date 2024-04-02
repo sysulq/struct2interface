@@ -7,8 +7,8 @@ import (
 	"go/parser"
 	"go/token"
 	"io/fs"
-	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -170,7 +170,6 @@ func makeInterfaceHead(pkgName string, imports []string) []string {
 }
 
 func makeInterfaceBody(output []string, ifaceComment map[string]string, structName string, methods []string) []string {
-
 	comment := strings.TrimSuffix(strings.Replace(ifaceComment[structName], "\n", "\n//\t", -1), "\n//\t")
 	if len(strings.TrimSpace(comment)) > 0 {
 		output = append(output, fmt.Sprintf("// %s", comment))
@@ -227,8 +226,8 @@ func createFile(objs map[string][]*makeInterfaceFile) error {
 			fmt.Printf("[struct2interface] %s \n", "formatCode error")
 			return err
 		}
-		var fileName = filepath.Join(dir, "interface_"+pkgName+".go")
-		if err = ioutil.WriteFile(fileName, result, 0644); err != nil {
+		fileName := filepath.Join(dir, "interface_"+pkgName+".go")
+		if err = os.WriteFile(fileName, result, 0o644); err != nil {
 			return err
 		}
 		fmt.Printf("[struct2interface] %s %s %s \n", "parsing", time.Since(startTime).String(), fileName)
@@ -245,7 +244,7 @@ func makeFile(file string) (*makeInterfaceFile, error) {
 		typeDoc    = make(map[string]string)
 	)
 
-	src, err := ioutil.ReadFile(file)
+	src, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +284,7 @@ func makeFile(file string) (*makeInterfaceFile, error) {
 }
 
 func MakeDir(dir string) error {
-	var mapDirPath = make(map[string][]*makeInterfaceFile)
+	mapDirPath := make(map[string][]*makeInterfaceFile)
 	if err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
