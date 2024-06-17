@@ -3,7 +3,7 @@ module github.com/hnlq715/struct2interface
 go 1.19
 
 require (
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/tools v0.22.0
 )
