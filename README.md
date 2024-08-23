@@ -1,6 +1,6 @@
 # struct2interface
 
-[![Go](https://github.com/hnlq715/struct2interface/actions/workflows/go.yml/badge.svg)](https://github.com/hnlq715/struct2interface/actions/workflows/go.yml)
+[![Go](https://github.com/sysulq/struct2interface/actions/workflows/go.yml/badge.svg)](https://github.com/sysulq/struct2interface/actions/workflows/go.yml)
 
 This is a development helper program that generates a Golang interface by inspecting
 the structure methods of an existing `.go` file. The primary use case is to generate
@@ -10,7 +10,7 @@ makes unit testing easier.
 ## Install
 
 ```
-go install github.com/hnlq715/struct2interface/cmd/struct2interface@latest
+go install github.com/sysulq/struct2interface/cmd/struct2interface@latest
 ```
 
 ## Usage
